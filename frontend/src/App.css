@@ -1,0 +1,12 @@
+/* Reset Vite template styles that break layout */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Optional: keep fonts consistent */
+* {
+  box-sizing: border-box;
+}
