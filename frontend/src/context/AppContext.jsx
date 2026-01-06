@@ -19,7 +19,7 @@ export function AppProvider({ children }) {
       const res = await api.get("/api/applications");
       setApplications(res.data || []);
     } catch (e) {
-      // If backend isn't started yet, keep UI usable.
+      
       setApplications([]);
     } finally {
       setLoadingApps(false);
@@ -28,7 +28,7 @@ export function AppProvider({ children }) {
 
   useEffect(() => {
     loadApplications();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [user]);
 
   const addApplication = async ({ company, role, status, notes }) => {

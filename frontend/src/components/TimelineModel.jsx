@@ -60,7 +60,6 @@ export default function TimelineModel({ open, onClose, app }) {
     };
   }, [open, app?.id]);
 
-  // close on ESC
   useEffect(() => {
     if (!open) return;
 

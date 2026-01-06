@@ -25,7 +25,6 @@ public class AuthController {
     public AuthDtos.UserResponse register(@Valid @RequestBody AuthDtos.RegisterRequest req,
                                           HttpSession session) {
         User u = authService.register(req);
-        // auto login
         SessionUtil.setUserId(session, u.getId());
         return toUser(u);
     }

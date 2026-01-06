@@ -12,7 +12,6 @@ const STATUS_META = {
   REJECTED:  { label: "Rejected",  hint: "Keep going" },
 };
 
-// Keep same colors you already use in charts/cards
 const STATUS_COLORS = {
   APPLIED: "#3b82f6",
   INTERVIEW: "#f59e0b",
@@ -130,7 +129,6 @@ export default function Dashboard() {
   const closeModal = () => setSelectedStatus(null);
 
   const goApplications = (status) => {
-    // store selected filter, Applications page reads it
     localStorage.setItem("jt_status_filter", status);
     window.location.href = "/applications";
   };
@@ -228,8 +226,7 @@ export default function Dashboard() {
           <div className="chart-box">
             <ResponsiveContainer width="100%" height={320}>
               <BarChart data={barData} onClick={(e) => {
-                // recharts click often gives activeLabel in tooltip context,
-                // but simplest: detect payload if available
+             
                 const payload = e?.activePayload?.[0]?.payload;
                 if (payload?.status) openStatus(payload.status);
               }}>

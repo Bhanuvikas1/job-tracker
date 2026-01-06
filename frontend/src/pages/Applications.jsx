@@ -14,22 +14,21 @@ export default function Applications() {
 
   const [applications, setApplications] = useState([]);
 
-  // Search + Filter
+
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
 
-  // keep rows visible even if filter would hide them after status change
+
   const [pinnedIds, setPinnedIds] = useState(() => new Set());
 
-  // UI state
+
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState("");
 
-  // Timeline modal
+  
   const [timelineOpen, setTimelineOpen] = useState(false);
   const [selectedApp, setSelectedApp] = useState(null);
 
-  // read dashboard-selected filter (from localStorage)
   useEffect(() => {
     const saved = localStorage.getItem("jt_status_filter");
     if (saved) {
@@ -81,7 +80,7 @@ export default function Applications() {
       setNotes("");
       showToast("Application added.");
 
-      // clear pins after add 
+     
       setPinnedIds(new Set());
 
       await loadApplications();
@@ -95,12 +94,12 @@ export default function Applications() {
     try {
       await api.put(`/api/applications/${id}/status`, { status: newStatus });
 
-      // update list locally
+     
       setApplications((prev) =>
         prev.map((a) => (a.id === id ? { ...a, status: newStatus } : a))
       );
 
-      // pin so it won't disappear even if it no longer matches current filter
+
       setPinnedIds((prev) => {
         const next = new Set(prev);
         next.add(id);
@@ -120,7 +119,6 @@ export default function Applications() {
       await api.delete(`/api/applications/${id}`);
       setApplications((prev) => prev.filter((a) => a.id !== id));
 
-      // remove from pinned if deleted
       setPinnedIds((prev) => {
         const next = new Set(prev);
         next.delete(id);
@@ -157,7 +155,6 @@ export default function Applications() {
 
       const isPinned = pinnedIds.has(app.id);
 
-      // show if matches filter OR is pinned (so it never disappears)
       return matchesQuery && (matchesStatus || isPinned);
     });
   }, [applications, search, statusFilter, pinnedIds]);
@@ -173,7 +170,6 @@ export default function Applications() {
   function clearFilters() {
     setSearch("");
     setStatusFilter("ALL");
-    // also clear pins
     setPinnedIds(new Set());
   }
 

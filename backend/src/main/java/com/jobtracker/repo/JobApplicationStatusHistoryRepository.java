@@ -8,4 +8,5 @@ import java.util.List;
 public interface JobApplicationStatusHistoryRepository extends JpaRepository<JobApplicationStatusHistory, Long> {
 
     List<JobApplicationStatusHistory> findByApplication_IdOrderByChangedAtAsc(Long appId);
+    void deleteByApplication_Id(Long appId);
 }

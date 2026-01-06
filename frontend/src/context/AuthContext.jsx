@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await api.post("/api/auth/logout");
     } catch (e) {
-      // ignore
+
     }
     saveUser(null);
   };

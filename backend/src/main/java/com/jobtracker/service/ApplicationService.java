@@ -44,10 +44,8 @@ public class ApplicationService {
         a.setNotes(req.notes());
         a.setUser(user);
 
-        // 1) Save application first (so it has an ID)
         JobApplication saved = appRepo.save(a);
 
-        // 2) Create first history record (timeline start)
         historyRepo.save(new JobApplicationStatusHistory(
                 saved,
                 saved.getStatus(),
@@ -62,13 +60,12 @@ public class ApplicationService {
         JobApplication a = appRepo.findByIdAndUser_Id(appId, userId)
                 .orElseThrow(() -> new IllegalArgumentException("Application not found"));
 
-        //Update status
+
         a.setStatus(req.status());
 
-        //  Save application
+
         JobApplication saved = appRepo.save(a);
 
-        // Save status change to timeline (THIS FIXES YOUR ISSUE)
         historyRepo.save(new JobApplicationStatusHistory(
                 saved,
                 saved.getStatus(),
@@ -84,9 +81,11 @@ public class ApplicationService {
         JobApplication a = appRepo.findByIdAndUser_Id(appId, userId)
                 .orElseThrow(() -> new IllegalArgumentException("Application not found"));
 
+        historyRepo.deleteByApplication_Id(appId);
 
         appRepo.delete(a);
     }
+
 
     public JobApplication getById(Long userId, Long appId) {
         JobApplication app = appRepo.findById(appId)

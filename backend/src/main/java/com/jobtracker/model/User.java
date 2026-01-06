@@ -22,9 +22,6 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    /*
-      BCrypt hash.
-     */
     @Column(nullable = false)
     private String passwordHash;
 }

@@ -7,13 +7,12 @@ export default function Auth() {
   const navigate = useNavigate();
   const { user, loading, login, register } = useAuth();
 
-  const [tab, setTab] = useState("login"); // "login" | "register"
+  const [tab, setTab] = useState("login");
 
-  // Login form
+
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  // Register form
   const [name, setName] = useState("");
   const [regEmail, setRegEmail] = useState("");
   const [regPassword, setRegPassword] = useState("");
@@ -21,7 +20,6 @@ export default function Auth() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // If already logged in, go to dashboard (after auth loads)
   useEffect(() => {
     if (!loading && user) {
       navigate("/dashboard", { replace: true });
@@ -34,7 +32,7 @@ export default function Auth() {
     setSuccess("");
 
     try {
-      await login(loginEmail, loginPassword); //sets user + token in context
+      await login(loginEmail, loginPassword); 
       navigate("/dashboard", { replace: true });
     } catch (err) {
       setError(err?.response?.data?.message || "Login failed. Check your details.");
@@ -47,14 +45,13 @@ export default function Auth() {
     setSuccess("");
 
     try {
-      //register should ONLY create account (no auto login)
+    
       await register(name, regEmail, regPassword);
 
-      // show success message & switch to login tab
       setSuccess("Registration successful. Please log in.");
       setTab("login");
 
-      // optional: clear register fields
+
       setName("");
       setRegEmail("");
       setRegPassword("");

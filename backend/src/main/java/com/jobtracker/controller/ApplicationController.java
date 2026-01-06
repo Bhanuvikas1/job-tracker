@@ -58,7 +58,6 @@ public class ApplicationController {
     public List<ApplicationDtos.HistoryResponse> history(@PathVariable Long id, HttpSession session) {
         Long uid = requireUser(session);
 
-        // make sure user owns the application
         service.getById(uid, id);
 
         return historyRepo.findByApplication_IdOrderByChangedAtAsc(id)
